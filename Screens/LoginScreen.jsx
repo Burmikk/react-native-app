@@ -1,13 +1,15 @@
-import { Text, View, StyleSheet, ImageBackground, Pressable, Platform, TextInput, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, useWindowDimensions, Pressable, Platform, TextInput, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
 
 const LoginScreen = () => {
+    const { height } = useWindowDimensions();
+
     return (
         <>
             <View style={styles.container}>
-                <ImageBackground style={styles.backgroundImage} source={Background}>
+                <ImageBackground style={(styles.backgroundImage, { height })} source={Background}>
                     <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                         <View style={styles.registraion_wrapper}>
                             <View style={styles.registraion_box}>
