@@ -22,22 +22,6 @@ const RegistrationScreen = () => {
                                 <Text style={styles.text}>Реєстрація</Text>
 
                                 <View style={styles.form}>
-                                    {/* <TextInput
-                                        style={[styles.input, isFocused && styles.inputFocused]}
-                                        placeholder="Логін"
-                                        placeholderTextColor="#BDBDBD"
-                                        inputMode="text"
-                                        onFocus={handleFocus}
-                                        onBlur={handleBlur}
-                                    />
-                                    <TextInput style={styles.input} placeholder="Адреса електронної пошти" placeholderTextColor="#BDBDBD" inputMode="email" />
-                                    <TextInput
-                                        style={[styles.input, styles.marginBottom]}
-                                        placeholder="Пароль"
-                                        placeholderTextColor="#BDBDBD"
-                                        inputMode="text"
-                                        secureTextEntry={true}
-                                    /> */}
                                     <InputField placeholder="Логін" inputMode="text" />
                                     <InputField placeholder="Адреса електронної пошти" inputMode="email" />
                                     <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} />

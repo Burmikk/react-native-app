@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet, ImageBackground, Pressable, Platform, TextInput, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
+import InputField from "../Components/InputField/InputField";
+
 const LoginScreen = () => {
     return (
         <>
@@ -12,14 +14,8 @@ const LoginScreen = () => {
                                 <Text style={styles.text}>Увійти</Text>
 
                                 <View style={styles.form}>
-                                    <TextInput style={styles.input} placeholder="Адреса електронної пошти" placeholderTextColor="#BDBDBD" inputMode="email" />
-                                    <TextInput
-                                        style={[styles.input, styles.marginBottom]}
-                                        placeholder="Пароль"
-                                        placeholderTextColor="#BDBDBD"
-                                        inputMode="text"
-                                        secureTextEntry={true}
-                                    />
+                                    <InputField placeholder="Адреса електронної пошти" inputMode="email" />
+                                    <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} />
                                 </View>
                             </View>
                         </View>
@@ -90,13 +86,7 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         paddingRight: 16,
     },
-    input: {
-        height: 50,
-        backgroundColor: "#F6F6F6",
-        borderRadius: 8,
-        paddingLeft: 16,
-        marginBottom: 16,
-    },
+
     marginBottom: {
         marginBottom: 43,
     },
