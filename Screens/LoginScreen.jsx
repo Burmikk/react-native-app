@@ -1,37 +1,47 @@
-import { Text, View, StyleSheet, ImageBackground, useWindowDimensions, Pressable, Platform, TextInput, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, useWindowDimensions, Alert, Keyboard, TouchableWithoutFeedback, Pressable, Platform, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
+import React, { useState } from "react";
+import Button from "../Components/Button/Button";
 
 const LoginScreen = () => {
     const { height } = useWindowDimensions();
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+
+    const onLogin = () => {
+        console.log({ name, password });
+        setName("");
+        setPassword("");
+    };
 
     return (
         <>
-            <View style={styles.container}>
-                <ImageBackground style={(styles.backgroundImage, { height })} source={Background}>
-                    <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                        <View style={styles.registraion_wrapper}>
-                            <View style={styles.registraion_box}>
-                                <Text style={styles.text}>Увійти</Text>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <ImageBackground style={(styles.backgroundImage, { height })} source={Background}>
+                        <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                            <View style={styles.registraion_wrapper}>
+                                <View style={styles.registraion_box}>
+                                    <Text style={styles.text}>Увійти</Text>
 
-                                <View style={styles.form}>
-                                    <InputField placeholder="Адреса електронної пошти" inputMode="email" />
-                                    <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} />
+                                    <View style={styles.form}>
+                                        <InputField placeholder="Адреса електронної пошти" inputMode="email" setValue={setName} value={name} />
+                                        <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} setValue={setPassword} value={password} />
+                                    </View>
                                 </View>
                             </View>
+                        </KeyboardAvoidingView>
+                        <View style={styles.box}>
+                            <Button text="Увійти" onPress={onLogin} />
+                            <Text style={styles.signin_text}>
+                                Немає акаунту? <Text style={[styles.signin_text, styles.signin_link]}>Зареєструватися</Text>
+                            </Text>
                         </View>
-                    </KeyboardAvoidingView>
-                    <View style={styles.box}>
-                        <Pressable>
-                            <Text style={styles.btn}>Увійти</Text>
-                        </Pressable>
-                        <Text style={styles.signin_text}>
-                            Немає акаунту? <Text style={[styles.signin_text, styles.signin_link]}>Зареєструватися</Text>
-                        </Text>
-                    </View>
-                </ImageBackground>
-            </View>
+                    </ImageBackground>
+                </View>
+            </TouchableWithoutFeedback>
         </>
     );
 };

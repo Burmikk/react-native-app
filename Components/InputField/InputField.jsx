@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const InputField = ({ placeholder, inputMode, secureTextEntry = false }) => {
+const InputField = ({ placeholder, inputMode, secureTextEntry = false, value, setValue }) => {
     const [isFocused, setIsFocused] = useState(false);
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -14,11 +16,13 @@ const InputField = ({ placeholder, inputMode, secureTextEntry = false }) => {
         <>
             <TextInput
                 style={[styles.input, isFocused && styles.inputFocused]}
+                value={value}
                 placeholder={placeholder}
                 placeholderTextColor="#BDBDBD"
                 inputMode={inputMode}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onChangeText={setValue}
                 secureTextEntry={secureTextEntry}
             />
         </>

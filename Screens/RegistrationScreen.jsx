@@ -1,43 +1,64 @@
-import { Text, View, StyleSheet, ImageBackground, useWindowDimensions, Pressable, Platform, TextInput, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, useWindowDimensions, Keyboard, TouchableWithoutFeedback, Platform, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
+import Button from "../Components/Button/Button";
+import React, { useState } from "react";
 
 const RegistrationScreen = () => {
     const { height } = useWindowDimensions();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const onRegister = () => {
+        console.log({ name, password });
+        setName("");
+        setEmail("");
+        setPassword("");
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <>
-            <View style={styles.container}>
-                <ImageBackground style={(styles.backgroundImage, { height })} source={Background}>
-                    <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                        <View style={styles.registraion_wrapper}>
-                            <View style={styles.registraion_box}>
-                                <View style={styles.profile_photo}>
-                                    <View style={styles.icon}>
-                                        <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <ImageBackground style={(styles.backgroundImage, { height })} source={Background}>
+                        <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                            <View style={styles.registraion_wrapper}>
+                                <View style={styles.registraion_box}>
+                                    <View style={styles.profile_photo}>
+                                        <View style={styles.icon}>
+                                            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+                                        </View>
+                                    </View>
+
+                                    <Text style={styles.text}>Реєстрація</Text>
+
+                                    <View style={styles.form}>
+                                        <InputField placeholder="Логін" inputMode="text" value={name} setValue={setName} />
+                                        <InputField placeholder="Адреса електронної пошти" inputMode="email" value={email} setValue={setEmail} />
+                                        <View>
+                                            <InputField placeholder="Пароль" inputMode="text" secureTextEntry={!showPassword} value={password} setValue={setPassword} />
+                                            <TouchableOpacity style={styles.show_password} onPress={togglePasswordVisibility}>
+                                                <Text>{!showPassword ? "Показати" : "Скрити"}</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 </View>
-
-                                <Text style={styles.text}>Реєстрація</Text>
-
-                                <View style={styles.form}>
-                                    <InputField placeholder="Логін" inputMode="text" />
-                                    <InputField placeholder="Адреса електронної пошти" inputMode="email" />
-                                    <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} />
-                                </View>
                             </View>
-                        </View>
-                    </KeyboardAvoidingView>
+                        </KeyboardAvoidingView>
 
-                    <View style={styles.box}>
-                        <Pressable>
-                            <Text style={styles.btn}>Зареєстуватися</Text>
-                        </Pressable>
-                        <Text style={styles.login_text}>Вже є акаунт? Увійти</Text>
-                    </View>
-                </ImageBackground>
-            </View>
+                        <View style={styles.box}>
+                            <Button text="Зареєстуватися" onPress={onRegister} />
+                            <Text style={styles.login_text}>Вже є акаунт? Увійти</Text>
+                        </View>
+                    </ImageBackground>
+                </View>
+            </TouchableWithoutFeedback>
         </>
     );
 };
@@ -98,20 +119,19 @@ const styles = StyleSheet.create({
     marginBottom: {
         marginBottom: 43,
     },
+    show_password: {
+        position: "absolute",
+        // top: "25%",
+        left: "75%",
+        paddingBottom: 16,
+        paddingTop: 16,
+        // paddingLeft: 255,
+    },
     box: {
         backgroundColor: "#fff",
         alignItems: "center",
     },
-    btn: {
-        width: 343,
-        borderRadius: 100,
-        backgroundColor: "#FF6C00",
-        textAlign: "center",
-        paddingTop: 16,
-        paddingBottom: 16,
-        color: "#FFFFFF",
-        marginBottom: 16,
-    },
+
     login_text: {
         marginBottom: 45,
         color: "#1B4371",
