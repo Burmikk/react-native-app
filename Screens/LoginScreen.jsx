@@ -1,9 +1,22 @@
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, useWindowDimensions, Keyboard, TouchableWithoutFeedback, Platform, KeyboardAvoidingView } from "react-native";
+import {
+    Text,
+    View,
+    SafeAreaView,
+    StyleSheet,
+    ImageBackground,
+    TouchableOpacity,
+    useWindowDimensions,
+    Keyboard,
+    TouchableWithoutFeedback,
+    Platform,
+    KeyboardAvoidingView,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
 import React, { useState } from "react";
 import Button from "../Components/Button/Button";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
     const { height } = useWindowDimensions();
@@ -20,7 +33,7 @@ const LoginScreen = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
+    const navigation = useNavigation();
     return (
         <>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -48,7 +61,10 @@ const LoginScreen = () => {
                         <View style={styles.box}>
                             <Button text="Увійти" onPress={onLogin} />
                             <Text style={styles.signin_text}>
-                                Немає акаунту? <Text style={[styles.signin_text, styles.signin_link]}>Зареєструватися</Text>
+                                Немає акаунту?
+                                <Text style={[styles.signin_text, styles.signin_link]} onPress={() => navigation.navigate("Registration")}>
+                                    Зареєструватися
+                                </Text>
                             </Text>
                         </View>
                     </ImageBackground>
@@ -60,12 +76,13 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // justifyContent: "flex-end",
     },
     keyboard: {
         flex: 1,
     },
     backgroundImage: {
-        flex: 1,
+        // flex: 1,
         resizeMode: "cover",
     },
     registraion_wrapper: {

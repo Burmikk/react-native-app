@@ -1,9 +1,22 @@
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, useWindowDimensions, Keyboard, TouchableWithoutFeedback, Platform, KeyboardAvoidingView } from "react-native";
+import {
+    Text,
+    View,
+    StyleSheet,
+    ScrollView,
+    ImageBackground,
+    TouchableOpacity,
+    useWindowDimensions,
+    Keyboard,
+    TouchableWithoutFeedback,
+    Platform,
+    KeyboardAvoidingView,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
 import Button from "../Components/Button/Button";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
     const { height } = useWindowDimensions();
@@ -17,6 +30,8 @@ const RegistrationScreen = () => {
         setEmail("");
         setPassword("");
     };
+
+    const navigation = useNavigation();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -56,7 +71,9 @@ const RegistrationScreen = () => {
 
                         <View style={styles.box}>
                             <Button text="Зареєстуватися" onPress={onRegister} />
-                            <Text style={styles.login_text}>Вже є акаунт? Увійти</Text>
+                            <Text style={styles.login_text}>
+                                Вже є акаунт? <Text onPress={() => navigation.navigate("Login")}>Увійти</Text>
+                            </Text>
                         </View>
                     </ImageBackground>
                 </View>
@@ -67,6 +84,7 @@ const RegistrationScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // justifyContent: "flex-end",
     },
     keyboard: {
         flex: 1,
@@ -100,7 +118,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        backgroundColor: "#fff",
+        backgroundColor: "#ffffff",
         justifyContent: "flex-end",
     },
     text: {
@@ -118,20 +136,16 @@ const styles = StyleSheet.create({
         paddingRight: 16,
     },
 
-    marginBottom: {
-        marginBottom: 43,
-    },
     show_password: {
         position: "absolute",
-        // top: "25%",
         left: "75%",
         paddingBottom: 16,
         paddingTop: 16,
-        // paddingLeft: 255,
     },
     box: {
-        backgroundColor: "#fff",
+        backgroundColor: "#ffffff",
         alignItems: "center",
+        justifyContent: "flex-end",
     },
 
     login_text: {
