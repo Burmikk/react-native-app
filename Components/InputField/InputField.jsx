@@ -3,8 +3,6 @@ import { TextInput, StyleSheet } from "react-native";
 
 const InputField = ({ placeholder, inputMode, secureTextEntry = false, value, setValue }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -35,6 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F6F6F6",
         borderRadius: 8,
         paddingLeft: 16,
+        paddingRight: 100,
         marginBottom: 16,
     },
     inputFocused: {

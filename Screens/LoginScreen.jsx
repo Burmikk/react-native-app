@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, ImageBackground, useWindowDimensions, Alert, Keyboard, TouchableWithoutFeedback, Pressable, Platform, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, useWindowDimensions, Keyboard, TouchableWithoutFeedback, Platform, KeyboardAvoidingView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Background from "../assets/img/background.jpeg";
 import InputField from "../Components/InputField/InputField";
@@ -9,11 +9,16 @@ const LoginScreen = () => {
     const { height } = useWindowDimensions();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const onLogin = () => {
         console.log({ name, password });
         setName("");
         setPassword("");
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -28,7 +33,14 @@ const LoginScreen = () => {
 
                                     <View style={styles.form}>
                                         <InputField placeholder="Адреса електронної пошти" inputMode="email" setValue={setName} value={name} />
-                                        <InputField placeholder="Пароль" inputMode="text" secureTextEntry={true} setValue={setPassword} value={password} />
+                                        <View>
+                                            <InputField placeholder="Пароль" inputMode="text" secureTextEntry={!showPassword} value={password} setValue={setPassword} />
+                                            {password && (
+                                                <TouchableOpacity style={styles.show_password} onPress={togglePasswordVisibility}>
+                                                    <Text>{!showPassword ? "Показати" : "Скрити"}</Text>
+                                                </TouchableOpacity>
+                                            )}
+                                        </View>
                                     </View>
                                 </View>
                             </View>
@@ -105,6 +117,14 @@ const styles = StyleSheet.create({
     box: {
         backgroundColor: "#fff",
         alignItems: "center",
+    },
+    show_password: {
+        position: "absolute",
+        // top: "25%",
+        left: "75%",
+        paddingBottom: 16,
+        paddingTop: 16,
+        // paddingLeft: 255,
     },
     btn: {
         width: 343,

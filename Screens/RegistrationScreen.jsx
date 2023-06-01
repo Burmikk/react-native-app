@@ -12,7 +12,7 @@ const RegistrationScreen = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const onRegister = () => {
-        console.log({ name, password });
+        console.log({ name, email, password });
         setName("");
         setEmail("");
         setPassword("");
@@ -43,9 +43,11 @@ const RegistrationScreen = () => {
                                         <InputField placeholder="Адреса електронної пошти" inputMode="email" value={email} setValue={setEmail} />
                                         <View>
                                             <InputField placeholder="Пароль" inputMode="text" secureTextEntry={!showPassword} value={password} setValue={setPassword} />
-                                            <TouchableOpacity style={styles.show_password} onPress={togglePasswordVisibility}>
-                                                <Text>{!showPassword ? "Показати" : "Скрити"}</Text>
-                                            </TouchableOpacity>
+                                            {password && (
+                                                <TouchableOpacity style={styles.show_password} onPress={togglePasswordVisibility}>
+                                                    <Text>{!showPassword ? "Показати" : "Скрити"}</Text>
+                                                </TouchableOpacity>
+                                            )}
                                         </View>
                                     </View>
                                 </View>
