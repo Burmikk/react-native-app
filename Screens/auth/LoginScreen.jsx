@@ -1,8 +1,8 @@
 import {
     Text,
     View,
+    SafeAreaView,
     StyleSheet,
-    ScrollView,
     ImageBackground,
     TouchableOpacity,
     useWindowDimensions,
@@ -12,31 +12,31 @@ import {
     KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import Background from "../assets/img/background.jpeg";
-import InputField from "../Components/InputField/InputField";
-import Button from "../Components/Button/Button";
+import Background from "../../assets/img/background.jpeg";
+import InputField from "../../Components/InputField/InputField";
 import React, { useState } from "react";
+import Button from "../../Components/Button/Button";
 import { useNavigation } from "@react-navigation/native";
 
-const RegistrationScreen = () => {
+const LoginScreen = () => {
     const { height } = useWindowDimensions();
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const onRegister = () => {
-        console.log({ name, email, password });
-        setName("");
-        setEmail("");
-        setPassword("");
-    };
 
-    const navigation = useNavigation();
+    const onLogin = () => {
+        if (name && password) {
+            console.log({ name, password });
+        }
+        setName("");
+        setPassword("");
+        navigation.navigate("Home");
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
+    const navigation = useNavigation();
     return (
         <>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -45,17 +45,10 @@ const RegistrationScreen = () => {
                         <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                             <View style={styles.registraion_wrapper}>
                                 <View style={styles.registraion_box}>
-                                    <View style={styles.profile_photo}>
-                                        <View style={styles.icon}>
-                                            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-                                        </View>
-                                    </View>
-
-                                    <Text style={styles.text}>Реєстрація</Text>
+                                    <Text style={styles.text}>Увійти</Text>
 
                                     <View style={styles.form}>
-                                        <InputField placeholder="Логін" inputMode="text" value={name} setValue={setName} />
-                                        <InputField placeholder="Адреса електронної пошти" inputMode="email" value={email} setValue={setEmail} />
+                                        <InputField placeholder="Адреса електронної пошти" inputMode="email" setValue={setName} value={name} />
                                         <View>
                                             <InputField placeholder="Пароль" inputMode="text" secureTextEntry={!showPassword} value={password} setValue={setPassword} />
                                             {password && (
@@ -68,11 +61,13 @@ const RegistrationScreen = () => {
                                 </View>
                             </View>
                         </KeyboardAvoidingView>
-
                         <View style={styles.box}>
-                            <Button text="Зареєстуватися" onPress={onRegister} />
-                            <Text style={styles.login_text}>
-                                Вже є акаунт? <Text onPress={() => navigation.navigate("Login")}>Увійти</Text>
+                            <Button text="Увійти" onPress={onLogin} />
+                            <Text style={styles.signin_text}>
+                                Немає акаунту?
+                                <Text style={[styles.signin_text, styles.signin_link]} onPress={() => navigation.navigate("Registration")}>
+                                    Зареєструватися
+                                </Text>
                             </Text>
                         </View>
                     </ImageBackground>
@@ -122,7 +117,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     text: {
-        marginTop: 92,
+        marginTop: 32,
         marginBottom: 33,
         fontFamily: "Roboto",
         fontSize: 30,
@@ -136,24 +131,38 @@ const styles = StyleSheet.create({
         paddingRight: 16,
     },
 
-    show_password: {
-        position: "absolute",
-        left: "75%",
-        paddingBottom: 16,
-        paddingTop: 16,
+    marginBottom: {
+        marginBottom: 43,
     },
     box: {
         backgroundColor: "#ffffff",
         alignItems: "center",
-        justifyContent: "flex-end",
     },
-
-    login_text: {
-        marginBottom: 45,
+    show_password: {
+        position: "absolute",
+        // top: "25%",
+        left: "75%",
+        paddingBottom: 16,
+        paddingTop: 16,
+        // paddingLeft: 255,
+    },
+    btn: {
+        width: 343,
+        borderRadius: 100,
+        backgroundColor: "#FF6C00",
+        textAlign: "center",
+        paddingTop: 16,
+        paddingBottom: 16,
+        color: "#FFFFFF",
+        marginBottom: 16,
+    },
+    signin_text: {
+        marginBottom: 111,
         color: "#1B4371",
         fontFamily: "Roboto",
         fontSize: 16,
         lineHeight: 19,
     },
+    signin_link: { textDecorationLine: "underline" },
 });
-export default RegistrationScreen;
+export default LoginScreen;
