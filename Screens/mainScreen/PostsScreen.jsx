@@ -1,6 +1,7 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import user from "../../assets/img/user.png";
+import Post from "../../Components/Post/Post";
 const PostScreen = () => {
     return (
         <>
@@ -13,11 +14,16 @@ const PostScreen = () => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.user_wrapper}>
-                    <Image source={user}></Image>
-                    <View style={styles.user_info}>
-                        <Text>Natali Romanova</Text>
-                        <Text>email@example.com</Text>
+                <View style={styles.posts_wrapper}>
+                    <View style={styles.user_wrapper}>
+                        <Image source={user}></Image>
+                        <View style={styles.user_info}>
+                            <Text>Natali Romanova</Text>
+                            <Text>email@example.com</Text>
+                        </View>
+                    </View>
+                    <View>
+                        <Post />
                     </View>
                 </View>
             </View>
@@ -29,6 +35,7 @@ export default PostScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#fff",
     },
     navigation: {
         height: 88,
@@ -55,9 +62,11 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         marginLeft: "auto",
     },
+    posts_wrapper: {
+        paddingHorizontal: 16,
+    },
     user_wrapper: {
         flexDirection: "row",
-        paddingHorizontal: 16,
         paddingTop: 32,
     },
     user_info: {
