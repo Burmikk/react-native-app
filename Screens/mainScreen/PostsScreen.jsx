@@ -1,15 +1,23 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import user from "../../assets/img/user.png";
 const PostScreen = () => {
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.navigation}>
-                    <View style={styles.wrapper}>
+                    <View style={styles.nav_wrapper}>
                         <Text style={styles.navgationText}>Публікації</Text>
                         <View style={styles.icon}>
                             <Feather name="log-out" size={24} color="#BDBDBD" />
                         </View>
+                    </View>
+                </View>
+                <View style={styles.user_wrapper}>
+                    <Image source={user}></Image>
+                    <View style={styles.user_info}>
+                        <Text>Natali Romanova</Text>
+                        <Text>email@example.com</Text>
                     </View>
                 </View>
             </View>
@@ -24,12 +32,11 @@ const styles = StyleSheet.create({
     },
     navigation: {
         height: 88,
-        // alignItems: "center",
         paddingTop: 44,
         borderBottomWidth: 1,
         borderBottomColor: "#BDBDBD",
     },
-    wrapper: {
+    nav_wrapper: {
         paddingHorizontal: 16,
         flexDirection: "row",
         justifyContent: "center",
@@ -43,10 +50,18 @@ const styles = StyleSheet.create({
         lineHeight: 22,
         fontWeight: 500,
         color: "#212121",
-        // marginLeft: "auto",
     },
     icon: {
         justifyContent: "flex-end",
         marginLeft: "auto",
+    },
+    user_wrapper: {
+        flexDirection: "row",
+        paddingHorizontal: 16,
+        paddingTop: 32,
+    },
+    user_info: {
+        justifyContent: "center",
+        paddingLeft: 8,
     },
 });
