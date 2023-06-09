@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { View, Image, Text, StyleSheet } from "react-native";
 import wood from "../../assets/img/wood.png";
 const Post = () => {
@@ -14,7 +14,7 @@ const Post = () => {
                         <Text style={styles.comment_text}>0</Text>
                     </View>
                     <View style={styles.location}>
-                        <EvilIcons name="location" size={24} color="#BDBDBD" />
+                        <Ionicons style={styles.location_icon} name="ios-location-outline" size={22} color="#BDBDBD" />
                         <Text style={styles.location_text}>Ivano-Frankivs'k Region, Ukraine</Text>
                     </View>
                 </View>
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "green",
         marginTop: 8,
     },
     comments: {
@@ -56,13 +55,15 @@ const styles = StyleSheet.create({
         color: "#BDBDBD",
     },
     location: {
-        // height: 40,
         flexDirection: "row",
-        backgroundColor: "#ffd",
-        // alignItems: "center",
+        alignItems: "center",
     },
 
     location_text: {
         textDecorationLine: "underline",
+    },
+    location_icon: {
+        width: 24,
+        height: 24,
     },
 });

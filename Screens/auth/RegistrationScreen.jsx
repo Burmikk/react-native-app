@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import Background from "../../assets/img/background.jpeg";
 import InputField from "../../Components/InputField/InputField";
 import Button from "../../Components/Button/Button";
+import AddImage from "../../Components/AddImage/AddImage";
 
 const RegistrationScreen = () => {
     const { height } = useWindowDimensions();
@@ -49,11 +50,7 @@ const RegistrationScreen = () => {
                         <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                             <View style={styles.registraion_wrapper}>
                                 <View style={styles.registraion_box}>
-                                    <View style={styles.profile_photo}>
-                                        <View style={styles.icon}>
-                                            <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
-                                        </View>
-                                    </View>
+                                    <AddImage />
 
                                     <Text style={styles.text}>Реєстрація</Text>
 
@@ -101,22 +98,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
     },
-    profile_photo: {
-        width: 120,
-        height: 120,
-        backgroundColor: "#F6F6F6",
-        borderRadius: 16,
-        position: "absolute",
-        top: 0,
-        left: "50%",
-        marginLeft: -60,
-        marginTop: -60,
-    },
-    icon: {
-        position: "absolute",
-        top: "65%",
-        left: "90%",
-    },
+
     registraion_box: {
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
