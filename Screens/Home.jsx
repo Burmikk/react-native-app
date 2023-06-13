@@ -9,7 +9,6 @@ import { Feather } from "@expo/vector-icons";
 import { View, StyleSheet } from "react-native";
 
 const MainTab = createBottomTabNavigator();
-const Tabs = createBottomTabNavigator();
 
 const Home = () => {
     return (

@@ -26,7 +26,6 @@ const LoginScreen = () => {
 
     const onLogin = () => {
         if (name && password) {
-            console.log({ name, password });
         }
         setName("");
         setPassword("");

@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from "react-native";
+import { Text, View, StyleSheet, TextInput, Image, TouchableWithoutFeedback, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, Keyboard } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../../Components/Button/Button";
 import { useState, useEffect } from "react";
@@ -7,10 +8,7 @@ import { useState, useEffect } from "react";
 const CreatePostsScreen = () => {
     const navigation = useNavigation();
     const { params } = useRoute();
-    console.log(params);
     const [photo, setPhoto] = useState(params);
-    console.log("photo--->", photo);
-
     const [post, setPost] = useState([]);
     const [name, setName] = useState("");
     const [place, setPlace] = useState("");
@@ -23,51 +21,64 @@ const CreatePostsScreen = () => {
         navigation.navigate("Camera");
     };
 
+    const reset = () => {
+        setPhoto("");
+        setName("");
+        setPlace("");
+    };
+
     const handleSubmit = () => {
         if (photo && place && name) {
             setPost((prevState) => [...prevState, { photo, name, place }]);
-            setPhoto("");
-            setName("");
-            setPlace("");
-            navigation.navigate("Posts");
+            reset();
+
+            navigation.navigate("Posts", { photo });
         } else Alert.alert("Завантажте фото та заповніть поля");
     };
     return (
         <View style={styles.container}>
-            <View style={styles.navigation}>
-                <View style={styles.nav_wrapper}>
-                    <View style={styles.icon}>
-                        <Ionicons name="arrow-back" size={24} color="#BDBDBD" />
+            <KeyboardAvoidingView style={styles.keyboard} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                <View style={styles.navigation}>
+                    <View style={styles.nav_wrapper}>
+                        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate("Posts")}>
+                            <Ionicons name="arrow-back" size={24} color="#BDBDBD" />
+                        </TouchableOpacity>
+                        <Text style={styles.navgationText}>Публікації</Text>
                     </View>
-                    <Text style={styles.navgationText}>Публікації</Text>
                 </View>
-            </View>
-            <View style={styles.post_wrapper}>
-                <View style={styles.photo_wrapper}>
-                    {photo && <Image style={styles.img} source={{ uri: photo.uri }} />}
-                    <TouchableOpacity style={[styles.icon_wrapper, { backgroundColor: photo ? "rgba(255, 255, 255,0.3)" : "rgb(255, 255, 255)" }]} onPress={openCamera}>
-                        <Ionicons style={styles.photo_icon} name="camera" size={24} color="#BDBDBD" />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.post_info}>
+
+                <View style={styles.post_wrapper}>
+                    <View style={styles.photo_wrapper}>
+                        {photo && <Image style={styles.img} source={{ uri: photo.uri }} />}
+                        <TouchableOpacity style={[styles.icon_wrapper, { backgroundColor: photo ? "rgba(255, 255, 255,0.3)" : "rgb(255, 255, 255)" }]} onPress={openCamera}>
+                            <Ionicons style={styles.photo_icon} name="camera" size={24} color="#BDBDBD" />
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.photo_text}>{photo ? "Редагувати фото" : "Завантажте фото"}</Text>
 
-                    <TextInput onChangeText={setName} inputMode="text" value={name} style={styles.input} placeholder="Назва..." placeholderTextColor="#BDBDBD" />
+                    <View style={styles.post_info}>
+                        <View style={styles.post_form}>
+                            <TextInput onChangeText={setName} inputMode="text" value={name} style={styles.input} placeholder="Назва..." placeholderTextColor="#BDBDBD" />
+                            <View style={styles.location_wrapper}>
+                                <TextInput
+                                    inputMode="text"
+                                    value={place}
+                                    style={[styles.input, { paddingLeft: 28 }]}
+                                    placeholder="Місцевість..."
+                                    placeholderTextColor="#BDBDBD"
+                                    onChangeText={setPlace}
+                                />
+                                <Ionicons style={styles.location_icon} name="ios-location-outline" size={22} color="#BDBDBD" />
+                            </View>
 
-                    <View style={styles.location_wrapper}>
-                        <TextInput
-                            inputMode="text"
-                            value={place}
-                            style={[styles.input, { paddingLeft: 28 }]}
-                            placeholder="Місцевість..."
-                            placeholderTextColor="#BDBDBD"
-                            onChangeText={setPlace}
-                        />
-                        <Ionicons style={styles.location_icon} name="ios-location-outline" size={22} color="#BDBDBD" />
+                            <Button bgColor={photo && place && name ? "#FF6C00" : "#F6F6F6"} onPress={handleSubmit} text="Опублікувати" />
+                        </View>
+                        <TouchableOpacity onPress={reset} style={styles.trash_container}>
+                            <AntDesign name="delete" size={24} color="#BDBDBD" />
+                        </TouchableOpacity>
                     </View>
-                    <Button bgColor={photo && place && name ? "#FF6C00" : "#F6F6F6"} onPress={handleSubmit} text="Опублікувати" />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     );
 };
@@ -77,6 +88,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    keyboard: {
+        flex: 1,
     },
     navigation: {
         height: 88,
@@ -104,6 +118,7 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
     },
     post_wrapper: {
+        flex: 1,
         paddingHorizontal: 16,
     },
     photo_wrapper: {
@@ -135,7 +150,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    post_info: {},
+    post_info: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
 
     photo_text: {
         color: "#BDBDBD",
@@ -152,5 +171,14 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 45,
         left: 0,
+    },
+    trash_container: {
+        width: 70,
+        height: 40,
+        backgroundColor: "#F6F6F6",
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 22,
     },
 });

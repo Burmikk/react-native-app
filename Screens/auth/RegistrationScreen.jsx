@@ -1,17 +1,4 @@
-import {
-    Text,
-    View,
-    StyleSheet,
-    ScrollView,
-    ImageBackground,
-    TouchableOpacity,
-    useWindowDimensions,
-    Keyboard,
-    TouchableWithoutFeedback,
-    Platform,
-    KeyboardAvoidingView,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, useWindowDimensions, Keyboard, TouchableWithoutFeedback, Platform, KeyboardAvoidingView } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -30,7 +17,6 @@ const RegistrationScreen = () => {
 
     const onRegister = () => {
         if (name && password) {
-            console.log({ name, email, password });
         }
         setName("");
         setEmail("");

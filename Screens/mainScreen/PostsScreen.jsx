@@ -2,7 +2,11 @@ import { Text, View, Image, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import user from "../../assets/img/user.png";
 import Post from "../../Components/Post/Post";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 const PostScreen = () => {
+    const { params } = useRoute();
+    const navigation = useNavigation();
     return (
         <>
             <View style={styles.container}>
@@ -10,7 +14,7 @@ const PostScreen = () => {
                     <View style={styles.nav_wrapper}>
                         <Text style={styles.navgationText}>Публікації</Text>
                         <View style={styles.icon}>
-                            <Feather name="log-out" size={24} color="#BDBDBD" />
+                            <Feather name="log-out" size={24} color="#BDBDBD" onPress={() => navigation.navigate("Login")} />
                         </View>
                     </View>
                 </View>
@@ -23,7 +27,7 @@ const PostScreen = () => {
                         </View>
                     </View>
                     <View>
-                        <Post />
+                        <Post data={params} />
                     </View>
                 </View>
             </View>

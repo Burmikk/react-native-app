@@ -39,11 +39,9 @@ const CameraScreen = () => {
 
             const latitude = location.coords.latitude;
             const longitude = location.coords.longitude;
-            console.log("yes");
 
-            console.log(uri);
             setPhoto(uri);
-            navigation.navigate("CreatePost", { uri });
+            navigation.navigate("CreatePost", { uri, longitude, latitude });
         }
     };
 
